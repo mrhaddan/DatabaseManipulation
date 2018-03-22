@@ -18,35 +18,42 @@ public class DatabaseProject{
     public static void main(String[] args) throws SQLException{
         // TODO code application logic here
         System.out.println("###---Manage your database!---###");
+        
         System.out.println("Log in to your database...");
+        
         System.out.print("Enter username: ");
         user = scan.nextLine();
+        
         System.out.print("Enter password: ");
         password = scan.nextLine();
+        getConnection();
+        /**
+         * System.out.println("What would you like to do?");
+         * System.out.println("1. Add Table\n2. Add to Table\n3. ");
+         * String userInput = scan.nextLine();
+         * switch(userInput.toUpperCase()){
+            case "Y":
+                break;
+            case "N":
+                break;
+        }
+         */
         
         AddTable at = new AddTable(user, password);
-        at.start();
-        
-        /*
+        at.start();        
+    }
+
+    private static void getConnection() {
         try{
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            
-        }catch(Exception e){
-            System.out.println(e.getLocalizedMessage());
-            
-        }
-        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/DemoDatabase", "Nick", "Astrwo1ot");
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/DemoDatabase", "Nick", "Astrwo1ot");
         if(conn.isValid(0)){
             System.out.println("Super Sexy");
         }
-        Thread t = new Thread();
-        t.run();
-        */
+        }catch(SQLException e){
+            System.out.println(e.getLocalizedMessage());
+        }
         
     }
 
-    private void begin() {
-        System.out.println("Welcome!");
-    }
-    
+       
 }
