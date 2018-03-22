@@ -39,15 +39,15 @@ public class DatabaseProject{
         }
          */
         
-        AddTable at = new AddTable(user, password);
+        AddTable at = new AddTable();
         at.start();        
     }
 
     private static void getConnection() {
         try{
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/DemoDatabase", "Nick", "Astrwo1ot");
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/DemoDatabase", user, password);
         if(conn.isValid(0)){
-            System.out.println("Super Sexy");
+            System.out.println("Succesfully Connected");
         }
         }catch(SQLException e){
             System.out.println(e.getLocalizedMessage());
