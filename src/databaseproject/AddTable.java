@@ -9,27 +9,45 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * @author nick
  * 
  */
 public class AddTable implements Runnable{
-
+    static Scanner scan = new Scanner(System.in);
     static String user, password, tableName;
     int cols;
     static Connection conn;
     Thread t;
     static Statement stmt;
-    
+    static StringBuilder sb = new StringBuilder();
     // Default Constructor
-    public AddTable(String user, String pass){
-        this.user = user;
-        this.password = pass;
-        System.out.print("Enter Table Name: ");
-        tableName = DatabaseProject.scan.nextLine();
-        connectToDatabase();
+    public AddTable(String user, String pass) throws SQLException{
         System.out.println("###---Add a table---###");
+        sb.append("CREATE TABLE ");
+        System.out.print("Enter Table Name: ");
+        tableName = scan.nextLine();
+        sb.append(tableName + " (id INT NOT NULL PRIMARY KEY");
+        System.out.print("How many columns will the table have? ");
+        cols = scan.nextInt();
+        for (int i = 0; i < cols; i++) {
+            System.out.print("Column Name: ");
+            String s = scan.nextLine();
+            sb.append(s + " ");
+            
+            System.out.print("Enter data type (VARCHAR(255), INT ): ");
+            s = scan.nextLine();
+            sb.append(s + ", ");
+        }
+        sb.append(");");
+        
+        System.out.println(sb.toString());
+        //stmt.executeUpdate(sb.toString());
+        
+        
     }
     
     @Override
@@ -42,6 +60,7 @@ public class AddTable implements Runnable{
         t.start();
     }
 
+    /*
     private void connectToDatabase() {
         try{
             conn = DriverManager.getConnection("jdbc:derby://localhost:1527/DemoDatabase", user, password);
@@ -53,4 +72,5 @@ public class AddTable implements Runnable{
             System.out.println(e.getLocalizedMessage());
         }
     }
+    */
 }
