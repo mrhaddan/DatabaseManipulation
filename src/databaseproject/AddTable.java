@@ -18,14 +18,15 @@ import java.util.Scanner;
  */
 public class AddTable implements Runnable{
     static Scanner scan = new Scanner(System.in);
-    static String user, password, tableName;
+    static String tableName;
     int cols;
     static Connection conn;
     Thread t;
     static Statement stmt;
     static StringBuilder sb = new StringBuilder();
+    
     // Default Constructor
-    public AddTable(String user, String pass) throws SQLException{
+    public AddTable() throws SQLException{
         System.out.println("###---Add a table---###");
         sb.append("CREATE TABLE ");
         System.out.print("Enter Table Name: ");
@@ -45,9 +46,7 @@ public class AddTable implements Runnable{
         sb.append(");");
         
         System.out.println(sb.toString());
-        //stmt.executeUpdate(sb.toString());
-        
-        
+        //stmt.executeUpdate(sb.toString()); After I figure out scanner issue
     }
     
     @Override
@@ -59,18 +58,4 @@ public class AddTable implements Runnable{
         t = new Thread(this);
         t.start();
     }
-
-    /*
-    private void connectToDatabase() {
-        try{
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/DemoDatabase", user, password);
-            if(conn.isValid(0)){
-                System.out.println("Successfully connected to database");
-                conn.close();
-            }
-        }catch(Exception e){
-            System.out.println(e.getLocalizedMessage());
-        }
-    }
-    */
 }
